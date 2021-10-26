@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useState} from 'react'
 import NewQuestion from '../components/NewQuestion'
 
-export default function AddQuestion({saveQuestion}) {
+export default function AddQuestion({saveQuestion,token}) {
 
     const [question, setQuestions] = useState({
         questionText: '',
@@ -69,8 +69,7 @@ export default function AddQuestion({saveQuestion}) {
                 <Button onClick={createNewAnswerOption}>Create Answeroption</Button>
                 <Button
                     onClick={() => {
-                        console.log((question))
-                        saveQuestion(question)
+                        saveQuestion(question,token)
                     }}
                 >
                     Save Question

@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import {BrowserRouter as Router} from "react-router-dom";
+import AuthProvider from "./context/AuthProvider";
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
       </Router>
 
   </React.StrictMode>,
