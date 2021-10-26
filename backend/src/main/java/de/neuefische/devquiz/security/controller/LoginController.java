@@ -13,14 +13,14 @@ import java.util.HashMap;
 
 
 @RestController
-public class AppUserController {
+public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtilService jwtUtilService;
 
 
     @Autowired
-    public AppUserController(AuthenticationManager authenticationManager, JWTUtilService jwtUtilService) {
+    public LoginController(AuthenticationManager authenticationManager, JWTUtilService jwtUtilService) {
 
         this.authenticationManager = authenticationManager;
         this.jwtUtilService = jwtUtilService;

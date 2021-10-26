@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AppUserControllerTest {
+class LoginControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

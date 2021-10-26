@@ -62,7 +62,7 @@ jobs:
         with:
           name: app.jar
           path: backend/target
-      - name: Login to heroku
+      - name: LoginPage to heroku
         run: heroku container:login
       - name: Push docker container
         run: heroku container:push web -a rem-21-4-quiz
