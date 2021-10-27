@@ -4,6 +4,7 @@ package de.neuefische.devquiz.security.api;
 import de.neuefische.devquiz.controller.exception.GitHubAuthException;
 import de.neuefische.devquiz.security.model.GitHubAccessTokenDto;
 import de.neuefische.devquiz.security.model.GitHubOAuthCredentialsDto;
+import de.neuefische.devquiz.security.model.GitHubUserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -16,14 +17,18 @@ import java.util.List;
 @Service
 public class GitHubApiService {
 
+
     private RestTemplate restTemplate;
 
-    private static final String GITHUB_CODE_URL = "https://github.com/login/oauth/access_token";
 
-    @Value("${de.neuefische.devquiz.github.clientid}")
+    private static final String GITHUB_CODE_URL = "https://github.com/login/oauth/access_token";
+    private static final String GITHUB_USER_URL = "https://api.github.com/user";
+
+
+    @Value("${de.neuefische.todo.github.clientid}")
     private String clientId;
 
-    @Value("${de.neuefische.devquiz.github.clientsecret}")
+    @Value("${de.neuefische.todo.github.clientsecret}")
     private String clientSecret;
 
     public GitHubApiService(RestTemplate restTemplate) {
@@ -48,10 +53,27 @@ public class GitHubApiService {
                 GitHubAccessTokenDto.class);
 
         if(response.getBody() == null){
-            throw new GitHubAuthException("Error while authenticating with code via GitHub!");
+            throw new GitHubAuthException("Error while authenticating with code via GitHub! Body is null!");
         }
 
         return response.getBody().getAccessToken();
 
+    }
+
+    public GitHubUserDto retrieveUserInfo(String gitHubToken) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBearerAuth(gitHubToken);
+
+        ResponseEntity<GitHubUserDto> response = restTemplate.exchange(
+                GITHUB_USER_URL,
+                HttpMethod.GET,
+                new HttpEntity<>(httpHeaders),
+                GitHubUserDto.class);
+
+        if(response.getBody() == null){
+            throw new GitHubAuthException("Error while authenticating with code via GitHub! Body is null!");
+        }
+
+        return response.getBody();
     }
 }
