@@ -16,6 +16,15 @@ export default function AuthProvider({ children }) {
             .then(() => history.push('/'))
             .catch(error => console.error(error.message))
     }
+    const loginWithGithub = code => {
+        axios
+            .post('/auth/github/login', {code})
+            .then(res => res.data)
+            .then(setToken)
+            .then(() => history.push('/'))
+            .catch(error => console.error(error.message))
+
+    }
 
     return (
         <AuthContext.Provider value={{ token, login }}>
