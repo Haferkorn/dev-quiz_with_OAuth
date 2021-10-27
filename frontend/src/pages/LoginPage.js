@@ -10,7 +10,7 @@ const initialState = {
 export default function LoginPage() {
     const [credentials, setCredentials] = useState(initialState)
     const {login} = useContext(AuthContext)
-    const clientId = "bf030e78902c4107794b"
+    const clientId = "150d0c24289fe60cd442"
 
     const handleChange = event => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
